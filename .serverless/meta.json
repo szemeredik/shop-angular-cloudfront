@@ -1,0 +1,58 @@
+{
+  "D:\\coding\\EPAM\\shop-angular-cloudfront": {
+    "versionSfCore": null,
+    "versionFramework": "4.0.35",
+    "isWithinCompose": false,
+    "composeOrgName": null,
+    "servicePath": "D:\\coding\\EPAM\\shop-angular-cloudfront",
+    "serviceConfigFileName": "serverless.yml",
+    "service": {
+      "service": "my-shop-app",
+      "provider": {
+        "name": "aws",
+        "runtime": "nodejs14.x",
+        "region": "eu-central-1",
+        "stage": "dev",
+        "versionFunctions": true
+      },
+      "plugins": ["serverless-finch", "serverless-single-page-app-plugin"],
+      "custom": {
+        "client": {
+          "bucketName": "cloudx-course",
+          "distributionFolder": "dist/app/browser"
+        }
+      },
+      "functions": {}
+    },
+    "serviceRawFile": "service: my-shop-app\r\n\r\nprovider:\r\n  name: aws\r\n  runtime: nodejs14.x\r\n  region: eu-central-1\r\n\r\nplugins:\r\n  - serverless-finch\r\n  - serverless-single-page-app-plugin\r\n\r\ncustom:\r\n  client:\r\n    bucketName: cloudx-course\r\n    distributionFolder: dist/app/browser\r\n\r\nfunctions: {}\r\n",
+    "command": ["client", "deploy"],
+    "options": {},
+    "error": null,
+    "accessKeyV2": "<REDACTED>",
+    "accessKeyV1": "<REDACTED>",
+    "orgId": "82748ab0-5fa7-4976-a6e6-bd1dadfadcae",
+    "orgName": "szemeredik",
+    "userId": "Mz4PQXxshJ2FL0pk0f",
+    "dashboard": {
+      "isEnabledForService": false,
+      "requiredAuthentication": false,
+      "orgFeaturesInUse": null,
+      "orgObservabilityIntegrations": null,
+      "serviceAppId": null,
+      "serviceProvider": null,
+      "instanceParameters": null
+    },
+    "userName": "szemeredik",
+    "subscription": null,
+    "userEmail": "szemeredik@gmail.com",
+    "serviceProviderAwsCredentials": "<REDACTED>",
+    "serviceProviderAwsAccountId": "533267428034",
+    "versionSf": "4.0.35",
+    "serviceProviderAwsCfStackName": "my-shop-app-dev",
+    "serviceProviderAwsCfStackId": null,
+    "serviceProviderAwsCfStackCreated": null,
+    "serviceProviderAwsCfStackUpdated": null,
+    "serviceProviderAwsCfStackStatus": null,
+    "serviceProviderAwsCfStackOutputs": null
+  }
+}

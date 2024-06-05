@@ -1,3 +1,8 @@
+## Links
+
+- **S3 Website URL**: http://cloudx-course.s3-website.eu-central-1.amazonaws.com
+- **CloudFront URL**: https://d305jm08ln0fde.cloudfront.net/
+
 # Shop Angular Cloudfront
 
 Angular version: ~17.

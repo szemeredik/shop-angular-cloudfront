@@ -1,0 +1,17 @@
+service: my-shop-app
+
+provider:
+  name: aws
+  runtime: nodejs14.x
+  region: eu-central-1
+
+plugins:
+  - serverless-finch
+  - serverless-single-page-app-plugin
+
+custom:
+  client:
+    bucketName: cloudx-course
+    distributionFolder: dist/app/browser
+
+functions: {}
