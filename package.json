@@ -12,7 +12,9 @@
     "lint:format": "npx --no-install lint-staged && npx --no-install pretty-quick --staged",
     "serve:dist": "lite-server -c bs-config.json",
     "deploy": "serverless client deploy",
-    "invalidate": "aws cloudfront create-invalidation --distribution-id E3BLHRV890B7TQ --paths \"/*\""
+    "invalidate": "aws cloudfront create-invalidation --distribution-id E3BLHRV890B7TQ --paths \"/*\"",
+    "update-policy": "aws s3api put-bucket-policy --bucket cloudx-course --policy file://bucket-policy.json",
+    "deploy:full": "npm run build && npm run deploy && npm run invalidate && npm run update-policy"
   },
   "private": true,
   "dependencies": {

@@ -2,7 +2,7 @@ service: my-shop-app
 
 provider:
   name: aws
-  runtime: nodejs14.x
+  runtime: nodejs20.x
   region: eu-central-1
 
 plugins:
@@ -13,5 +13,7 @@ custom:
   client:
     bucketName: cloudx-course
     distributionFolder: dist/app/browser
+    indexDocument: index.html
+    errorDocument: index.html
 
 functions: {}
