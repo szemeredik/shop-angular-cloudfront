@@ -4,17 +4,17 @@
   "scripts": {
     "ng": "ng",
     "start": "ng serve",
-    "build": "ng build",
+    "build": "ng build --configuration production",
     "test": "ng test",
     "lint": "ng lint",
     "e2e": "ng e2e",
     "prepare": "husky",
     "lint:format": "npx --no-install lint-staged && npx --no-install pretty-quick --staged",
     "serve:dist": "lite-server -c bs-config.json",
-    "deploy": "serverless client deploy",
+    "deploy": "serverless client deploy --no-confirm",
     "invalidate": "aws cloudfront create-invalidation --distribution-id E3BLHRV890B7TQ --paths \"/*\"",
     "update-policy": "aws s3api put-bucket-policy --bucket cloudx-course --policy file://bucket-policy.json",
-    "deploy:full": "npm run build && npm run deploy && npm run invalidate && npm run update-policy"
+    "deploy:full": "ng build && npm run deploy && npm run invalidate && npm run update-policy"
   },
   "private": true,
   "dependencies": {

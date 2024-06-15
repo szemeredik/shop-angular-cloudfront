@@ -1,34 +1,44 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
-import { Observable, of } from 'rxjs';
+
+import { EMPTY, Observable, of } from 'rxjs';
 import { map } from 'rxjs/operators';
+
 import { Product } from './product.interface';
-import { environment } from '../../environments/environment';
+
+import { ApiService } from '../core/api.service';
 
 @Injectable({
   providedIn: 'root',
 })
-export class ProductsService {
-  private apiUrl = environment.apiEndpoints.product;
-
-  constructor(private http: HttpClient) {}
-
-  getProducts(): Observable<Product[]> {
-    if (!environment.apiEndpointsEnabled.product) {
+export class ProductsService extends ApiService {
+  createNewProduct(product: Product): Observable<Product> {
+    if (!this.endpointEnabled('bff')) {
       console.warn(
-        'Endpoint "product" is disabled. To enable change your environment.ts config',
+        'Endpoint "bff" is disabled. To enable change your environment.ts config',
       );
-      return this.http.get<Product[]>('/assets/products.json');
+      return EMPTY;
     }
 
-    const url = `${this.apiUrl}/products`;
-    return this.http.get<Product[]>(url);
+    const url = this.getUrl('bff', 'products');
+    return this.http.post<Product>(url, product);
+  }
+
+  editProduct(id: string, changedProduct: Product): Observable<Product> {
+    if (!this.endpointEnabled('bff')) {
+      console.warn(
+        'Endpoint "bff" is disabled. To enable change your environment.ts config',
+      );
+      return EMPTY;
+    }
+
+    const url = this.getUrl('bff', `products/${id}`);
+    return this.http.put<Product>(url, changedProduct);
   }
 
   getProductById(id: string): Observable<Product | null> {
-    if (!environment.apiEndpointsEnabled.product) {
+    if (!this.endpointEnabled('bff')) {
       console.warn(
-        'Endpoint "product" is disabled. To enable change your environment.ts config',
+        'Endpoint "bff" is disabled. To enable change your environment.ts config',
       );
       return this.http
         .get<Product[]>('/assets/products.json')
@@ -39,32 +49,22 @@ export class ProductsService {
         );
     }
 
-    const url = `${this.apiUrl}/products/${id}`;
-    return this.http.get<Product>(url).pipe(map((resp) => resp || null));
+    const url = this.getUrl('bff', `products/${id}`);
+    return this.http
+      .get<{ product: Product }>(url)
+      .pipe(map((resp) => resp.product));
   }
 
-  createNewProduct(product: Product): Observable<Product> {
-    if (!environment.apiEndpointsEnabled.bff) {
+  getProducts(): Observable<Product[]> {
+    if (!this.endpointEnabled('bff')) {
       console.warn(
         'Endpoint "bff" is disabled. To enable change your environment.ts config',
       );
-      return of();
+      return this.http.get<Product[]>('/assets/products.json');
     }
 
-    const url = `${this.apiUrl}/products`;
-    return this.http.post<Product>(url, product);
-  }
-
-  editProduct(id: string, changedProduct: Product): Observable<Product> {
-    if (!environment.apiEndpointsEnabled.bff) {
-      console.warn(
-        'Endpoint "bff" is disabled. To enable change your environment.ts config',
-      );
-      return of();
-    }
-
-    const url = `${this.apiUrl}/products/${id}`;
-    return this.http.put<Product>(url, changedProduct);
+    const url = this.getUrl('bff', 'products');
+    return this.http.get<Product[]>(url);
   }
 
   getProductsForCheckout(ids: string[]): Observable<Product[]> {

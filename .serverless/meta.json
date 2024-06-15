@@ -1,9 +1,12 @@
 {
   "D:\\coding\\EPAM\\shop-angular-cloudfront": {
     "versionSfCore": null,
-    "versionFramework": "4.0.38",
+    "versionFramework": "4.1.4",
     "isWithinCompose": false,
+    "isCompose": false,
     "composeOrgName": null,
+    "composeResolverProviders": {},
+    "composeServiceName": null,
     "servicePath": "D:\\coding\\EPAM\\shop-angular-cloudfront",
     "serviceConfigFileName": "serverless.yml",
     "service": {
@@ -34,8 +37,12 @@
       "client",
       "deploy"
     ],
-    "options": {},
+    "options": {
+      "confirm": false
+    },
     "error": null,
+    "params": {},
+    "machineId": "4a34b27156ab92b8d7c929d0b58290fa",
     "accessKeyV2": "<REDACTED>",
     "accessKeyV1": "<REDACTED>",
     "orgId": "82748ab0-5fa7-4976-a6e6-bd1dadfadcae",
@@ -55,7 +62,7 @@
     "userEmail": "szemeredik@gmail.com",
     "serviceProviderAwsCredentials": "<REDACTED>",
     "serviceProviderAwsAccountId": "533267428034",
-    "versionSf": "4.0.38",
+    "versionSf": "4.1.4",
     "serviceProviderAwsCfStackName": "my-shop-app-dev",
     "serviceProviderAwsCfStackId": "arn:aws:cloudformation:eu-central-1:533267428034:stack/my-shop-app-dev/97d85ca0-272f-11ef-87e7-0635e8aa6e59",
     "serviceProviderAwsCfStackCreated": "2024-06-10T13:44:43.706Z",
