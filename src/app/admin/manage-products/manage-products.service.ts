@@ -1,11 +1,13 @@
 import { Injectable } from '@angular/core';
 import { EMPTY, Observable } from 'rxjs';
 import { ApiService } from '../../core/api.service';
-import { switchMap } from 'rxjs/operators';
+import { switchMap, map, tap } from 'rxjs/operators';
 
 @Injectable()
 export class ManageProductsService extends ApiService {
   uploadProductsCSV(file: File): Observable<unknown> {
+    // console.log('uploadProductsCSV called with file:', file);
+
     if (!this.endpointEnabled('import')) {
       console.warn(
         'Endpoint "import" is disabled. To enable change your environment.ts config',
@@ -13,25 +15,36 @@ export class ManageProductsService extends ApiService {
       return EMPTY;
     }
 
+    console.log('Endpoint "import" is enabled.');
+
     return this.getPreSignedUrl(file.name).pipe(
-      switchMap((url) =>
-        this.http.put(url, file, {
+      switchMap((url: string) => {
+        // console.log('Received signed URL:', url);
+        return this.http.put(url, file, {
           headers: {
             // eslint-disable-next-line @typescript-eslint/naming-convention
             'Content-Type': 'text/csv',
           },
-        }),
-      ),
+        });
+      }),
     );
   }
 
   private getPreSignedUrl(fileName: string): Observable<string> {
     const url = this.getUrl('import', 'import');
+    // console.log('Requesting signed URL for file:', fileName, 'from URL:', url);
 
-    return this.http.get<string>(url, {
-      params: {
-        name: fileName,
-      },
-    });
+    return this.http
+      .get<{ url: string }>(url, {
+        params: {
+          name: fileName,
+        },
+      })
+      .pipe(
+        tap((response: { url: string }) => {
+          // console.log('Received response from getPreSignedUrl:', response);
+        }),
+        map((response: { url: string }) => response.url),
+      );
   }
 }
