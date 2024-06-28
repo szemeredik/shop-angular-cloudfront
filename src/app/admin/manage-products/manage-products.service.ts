@@ -17,6 +17,12 @@ export class ManageProductsService extends ApiService {
 
     console.log('Endpoint "import" is enabled.');
 
+    // Ensure the token is set for only development, sensitive data
+    localStorage.setItem(
+      'authorization_token',
+      'Basic ' + btoa('szemeredik:TEST_PASSWORD'),
+    ); //TODO delete in production
+
     return this.getPreSignedUrl(file.name).pipe(
       switchMap((url: string) => {
         // console.log('Received signed URL:', url);
@@ -32,19 +38,28 @@ export class ManageProductsService extends ApiService {
 
   private getPreSignedUrl(fileName: string): Observable<string> {
     const url = this.getUrl('import', 'import');
-    // console.log('Requesting signed URL for file:', fileName, 'from URL:', url);
+    console.log('Requesting signed URL for file:', fileName, 'from URL:', url);
+
+    const headers = {
+      Authorization: this.getAuthorizationToken() || '', // Ensure the token is added
+    };
 
     return this.http
       .get<{ url: string }>(url, {
+        headers,
         params: {
           name: fileName,
         },
       })
       .pipe(
         tap((response: { url: string }) => {
-          // console.log('Received response from getPreSignedUrl:', response);
+          console.log('Received response from getPreSignedUrl:', response);
         }),
         map((response: { url: string }) => response.url),
       );
+  }
+
+  private getAuthorizationToken(): string | null {
+    return localStorage.getItem('authorization_token');
   }
 }
