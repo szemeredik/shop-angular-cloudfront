@@ -17,12 +17,6 @@ export class ManageProductsService extends ApiService {
 
     console.log('Endpoint "import" is enabled.');
 
-    // Ensure the token is set for only development, sensitive data
-    localStorage.setItem(
-      'authorization_token',
-      'Basic ' + btoa('szemeredik:TEST_PASSWORD'),
-    ); //TODO delete in production
-
     return this.getPreSignedUrl(file.name).pipe(
       switchMap((url: string) => {
         // console.log('Received signed URL:', url);

@@ -70,4 +70,12 @@ export class ManageProductsComponent {
       this.selectedFile.set(undefined);
     });
   }
+  imitateLogin() {
+    // Add your login imitation logic here
+    console.log('User login imitation initiated');
+    localStorage.setItem(
+      'authorization_token',
+      'Basic ' + btoa('szemeredik:TEST_PASSWORD'),
+    ); //TODO delete in production
+  }
 }
